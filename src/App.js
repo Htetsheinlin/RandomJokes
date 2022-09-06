@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import useFetch from './useFetch'
 
-function App() {
+
+const App = () => {
+  const {data, loading, error, refetch } = useFetch('https://api.chucknorris.io/jokes/random')
+  console.log(data);
+  if(loading) return <h1 style={{textAlign:"center"}}>Loading...</h1>
+  if(error) console.log(error)
+  console.log(data)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <>
+    <div style={{
+      textAlign : "center",margin:"150px",fontSize:"3rem"
+    }}>{data?.value}</div>
+    
+    <button style={{
+      fontSize:"2rem",padding:"1rem",display: 'block', margin: 'auto'
+    }} 
+    onClick={refetch}>Refetch</button>
+    </>
+    
+)}
 
-export default App;
+export default App 
